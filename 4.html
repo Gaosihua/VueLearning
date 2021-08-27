@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.min.js"></script>
+    <script src="js/axios.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        <!--局部组件-->
+        <button @click="clickBtn">展示列表</button>
+        <ul>
+            <li v-for="item in listArr">
+                <img src="item.picurl" alt="">
+                <h3>{{item.title}}</h3>
+            </li>
+        </ul>
+        <h1>{{message1}}</h1>
+        <itembox v-bind:mytitle="item" v-for="item in arrs" ></itembox>
+        <hr>
+        <itembox v-bind:title="item.title" v-for="item in arrObj"></itembox>
+    </div>
+</body>
+</html>
+<script>
+    var itembox = {
+        template: `
+                        <div>
+                            <h1 @click="clickH1">ABC</h1>
+                            <p>{{mytitle}}</p>
+                            <p>{{title}}</p>
+                        </div>`
+            ,
+            /* props是接收控件发送过来的变量  */
+            props:["mytitle","title"],
+             /* 局部组件里面的数据必须是一个函数形式出现 */
+            data(){
+                 return {
+                     des: 'PHP开发'
+                 }
+             },
+            methods: {
+                 clickH1(){
+                     console.log(123);
+                    }
+                 }
+
+    }
+ 
+    var vm2 = new Vue({
+        el:"#app",
+        data: {
+            message1 : "不带html的变量",
+            message2 : '<h1>有html的变量</h1>',
+            message3 : '这真是一个非常悲观的故事，非常郁闷的事情',
+            arrs: ["html开发","PHP开发","微信小程序开发","强化学习开发"],
+            arrObj:[
+                {
+                    title:"标题1",
+                    des:"描述1"
+                },
+                {
+                    title:"标题2",
+                    des:"描述2"
+                }],
+            listArr:[]
+
+        },
+        components:{
+            itembox: itembox
+        },
+        methods: {
+            clickBtn(){
+                axios.get('https://ku.qingnian8.com/dataApi/qingKu/getList.php').then((res)=>{
+                    console.log(res);
+                    this.listArr = res.data;
+                })
+
+            }
+        },
+
+    })
+</script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.min.js"></script>
+    <title>事件绑定 </title>
+</head>
+<body>
+    <div id="app">
+        <!-- 这里注意的是如果需要原生dom属性，需要$event-->
+        <h1 @click="clickH1(123,$event)">123</h1>
+        <h1 @click="clickH1(456)">456</h1>
+        <button @click.once="btnclick">只有一次好用</button>
+        <hr>
+        <div class="out" @click="clickout" style="width: 400px; height: 400px; background: coral;"> 
+            <div class="box" @click.stop="clickbox" style="width: 100px; height: 100px; background:blueviolet;">box</div>
+        </div>
+    </div>
+</body> 
+<script>
+    new Vue({
+        el: "#app",
+        methods: {
+            clickH1(e){ console.log(e); console.log(event)},
+            btnclick(){alert("good!")},
+            clickout(){ alert("out")},
+            clickbox(){ alert("box")}
+        },
+    })
+</script>
+</html>

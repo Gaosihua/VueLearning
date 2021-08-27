@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/vue.min.js"></script>
+    <title>Document</title>
+    <style>
+        .background1{
+            background-color: black;
+            color: white;
+        }
+        .background2{
+            background-color: tomato;
+            color: black
+        }
+    </style>
+</head>
+<body>
+    <!--显示变量的值-->
+    <div id="app">
+        <h2>网站名称：{{site}}</h2>
+        <h3>网站地址：{{url}}</h3>
+    </div>
+    <!--v-html指令, message2中是包含了html语句的变量-->
+    <div id="app2">
+       <p>{{message1}}</p>
+       <p v-html="message2"></p>
+       <p v-text="message3"></p>
+    </div>
+    <!--v-once 仅渲染一次，以后数据改变只当做是静态不发生变化-->
+    <!--v-model 是双向绑定，变量值与控件输入内容一致-->
+    <div id="app3">
+        <p v-once>{{message1}}</p>
+        <input type="text" v-model="message1">
+        <p v-model="message1">{{message1}}</p>
+    </div>
+    <!--v-bind 只要是属性，都可以绑定-->
+    <!--根据不同的情况选择属性-->
+    <div id="app4">
+        <label for="rl">设置黑色背景</label>
+        <input type="checkbox" v-model="show" id="rl">
+        <p>{{show}}</p>
+        <br>
+        <div v-bind:class="{background1: show}">
+            <p>背景颜色可能发生变化</p>
+        </div>
+    </div>
+    <!--双向绑定 select-->
+    <div id="app5">
+        <select name="frite" id="frute" v-model="selected">
+            <option value="0">请选择</option>
+            <option value="apple">苹果</option>
+            <option value="banana">香蕉</option>
+        </select>
+        <span>默认:{{selected}}</span>
+    </div>
+    <!--双向绑定 checkbox多选， 值得注意的是存储数据的应该是一个列表-->
+    <div id="app6">
+        <input type="checkbox" v-model="selected" value="天津">天津
+        <input type="checkbox" v-model="selected" value="北京">北京
+        <input type="checkbox" v-model="selected" value="上海">上海
+        <label for="par">选择的内容</label>
+        <p id="par">{{selected}}</p>
+    </div>
+    <!--双向绑定radio-->
+    <div id="app7">
+        <input type="radio" v-model="gender" value="男">男
+        <input type="radio" v-model="gender" value="女">女
+        <br>性别:<span>{{gender}}</span>
+    </div>
+    <!--bind 图片资源-->
+    <div id="app8">
+        <div v-if="image_chosen">
+            <img v-bind:src="image_address" alt="第一个照片" width="100">
+        </div>  
+    </div>
+</body>
+</html>
+<script >
+    var mydata = {site:"淘宝网",url:"www.taobao.com"}
+    var vm = new Vue({
+        el: "#app",
+        data: mydata
+    })
+    document.write(vm.site==mydata.site);
+    document.write("<br>");
+    var vm2 = new Vue({
+        el:"#app2",
+        data: {
+            message1 : "不带html的变量",
+            message2 : '<h1>有html的变量</h1>',
+            message3 : '这真是一个非常悲观的故事，非常郁闷的事情'
+        }
+    })
+    var vm3 = new Vue({
+        el:'#app3',
+        data:{
+            message1: 'once define'
+        }
+    })
+    var vm4 = new Vue({
+        el: '#app4',
+        data:{
+            show: false
+        }
+    })
+    var vm5 = new Vue({
+        el : '#app5',
+        data: { selected: '0'
+
+        }
+    })
+    var vm6 = new Vue({
+        el: '#app6',
+        data: {
+            selected: ['天津']  
+        }
+    })
+    var vm7 = new Vue({
+        el: "#app7",
+        data:{
+            gender: '男'
+        }
+    })
+    var vm8 = new Vue({
+        el: "#app8",
+        data:{
+            image_address: "img/1.png",
+            image_chosen: true                                          
+        }
+    })
+</script>

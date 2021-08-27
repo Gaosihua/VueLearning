@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>模板使用</title>
+    <script src="js/vue.min.js"></script>
+</head>
+<!--template不会增加盒子，只是规划一组数据而已，主要还是从结构上看-->
+<body>
+    <div id="app">
+        <template v-if="false">
+            <h1>公司一</h1>
+            <p>主营业务一</p>
+            <b>联系电话1</b>
+        </template>
+        <template v-else>
+            <h1>公司二</h1>
+            <p>主营业务二</p>
+            <b>联系电话二</b>
+        </template>
+    </div>
+</body>
+</html>
+<script>
+    new Vue({
+        el:"#app"
+
+    })
+</script>
